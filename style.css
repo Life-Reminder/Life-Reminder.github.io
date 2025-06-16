@@ -7,6 +7,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
     background-color: #000;
     font-family: "IBM Plex Mono", monospace;
@@ -63,13 +64,14 @@ p::before {
 }
 
 .progress-bar-container {
+    /* overflow: hidden; */
     width: 70%;
     opacity: 0;
     height: 15px; 
     background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    margin: 30px auto; 
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    border-radius: 8px; /* Скругленные углы */
+    margin: 30px auto; /* Отступы сверху/снизу и центрирование */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05); /* Легкая тень */
     transform: translateY(20px);
     animation: fadeIn 1s ease-out forwards;
   }
@@ -106,39 +108,52 @@ p::before {
   }
 }
 
+/* Базовая стилизация для инпута */
 input[type="date"] {
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3); 
-    font-family: "IBM Plex Mono", monospace; 
-    font-size: 2rem; 
-    padding: 0.5rem 0.2rem; 
-    text-align: center; 
-    outline: none; 
-    width: 100%; 
-    box-sizing: border-box;
+    background-color: transparent; /* Прозрачный фон */
+    border: none; /* Убираем рамку */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Легкая нижняя граница */
+    font-family: "IBM Plex Mono", monospace; /* Твой шрифт */
+    font-size: 2rem; /* Размер шрифта, можешь настроить */
+    padding: 0.5rem 0.2rem; /* Небольшие отступы */
+    text-align: center; /* Центрируем текст */
+    outline: none; /* Убираем стандартное синее выделение при фокусе */
+    width: 100%; /* Занимает всю доступную ширину */
+    box-sizing: border-box; /* Важно, чтобы padding не увеличивал ширину */
     color: transparent;
     text-shadow: 0 0 0 #ffffff; 
 }
 
+/* Изменение цвета при фокусе */
+/* input[type="date"]:focus {
+    border-bottom: 1px solid #ffffff;
+    transition: border-bottom 0.3s ease-in-out, color 0.3s ease-in-out;
+
+} */
+
+
+/* ***** Самое важное: Скрытие нативных элементов управления ***** */
+
+/* Для Webkit-браузеров (Chrome, Safari, Edge) */
 input[type="date"]::-webkit-calendar-picker-indicator,
 input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-clear-button {
-    display: none; 
-    -webkit-appearance: none; 
-    opacity: 0; 
-    pointer-events: none;
-    width: 0;
-    height: 0;
+    display: none; /* Скрываем все иконки и стрелки */
+    -webkit-appearance: none; /* Убираем дефолтные стили */
+    opacity: 0; /* Дополнительно обнуляем прозрачность */
+    pointer-events: none; /* Делаем некликабельным */
+    width: 0; /* Обнуляем ширину */
+    height: 0; /* Обнуляем высоту */
 }
 
+/* Для Firefox */
 input[type="date"] {
-    -moz-appearance: textfield;
+    -moz-appearance: textfield; /* Делаем похожим на текстовое поле */
 }
 input[type="date"]::-moz-calendar-picker-indicator {
-    display: none;
+    display: none; /* Скрываем иконку календаря в Firefox */
 }
-
+/* Скрытие нативной иконки для Edge */
 input[type="date"]::-ms-reveal {
   display: none;
 }
@@ -153,45 +168,75 @@ input::-webkit-datetime-edit-year-field:focus {
 }
 
 button {
+    /* Сброс нативных стилей браузера */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
 
+    /* Убираем стандартные рамки и фон */
     border: none;
-    background-color: transparent;
+    background-color: transparent; /* Делаем фон прозрачным */
 
-    color: #fff; 
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 1.2rem; 
-    font-weight: 400; 
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    /* Стиль текста */
+    color: #fff; /* Белый текст, как на основном сайте */
+    font-family: "IBM Plex Mono", monospace; /* Твой основной шрифт */
+    font-size: 1.2rem; /* Размер шрифта, можно регулировать */
+    font-weight: 400; /* Регулируй жирность, чтобы соответствовала остальному тексту */
+    text-transform: uppercase; /* Возможно, верхний регистр для эффекта */
+    letter-spacing: 2px; /* Небольшой межбуквенный интервал */
 
+    /* Отступы внутри кнопки */
     padding: 10px 20px;
-    margin-top: 30px;
+    margin-top: 30px; /* Отступ сверху от input-а */
 
+    /* Курсор при наведении */
     cursor: pointer;
 
-    transition: all 0.3s ease-out;
+    /* Плавные переходы для интерактивности */
+    transition: all 0.3s ease-out; /* Анимируем все свойства при наведении/фокусе */
 
-    display: block;
+    /* Опционально: центрирование, если кнопка не занимает всю ширину */
+    display: block; /* Делает кнопку блочным элементом */
     margin-left: auto;
     margin-right: auto;
 }
 
+/* Стили при наведении (hover) */
 button:hover {
-    color: #767676;
-    transform: translateY(-2px); 
+    color: #767676; /* Акцентный цвет при наведении, как для фокуса input */
+    transform: translateY(-2px); /* Легкий эффект "поднятия" */
+    /* text-shadow: 0 0 8px rgba(0, 188, 212, 0.7); /* Легкое свечение текста */
 }
 
+/* Стили при фокусе (tab-навигация) */
 button:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
-    color: #ffffff;
+    outline: none; /* Убираем стандартное фокусное кольцо */
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5); /* Кастомное, тонкое фокусное кольцо */
+    color: #ffffff; /* Тот же цвет, что и при ховере */
 }
 
+/* Стили при активном состоянии (нажатии) */
 button:active {
-    transform: translateY(0);
-    color: #767676;
+    transform: translateY(0); /* Возвращаем на место при нажатии */
+    color: #767676; /* Чуть темнее акцентный цвет при активном состоянии */
     box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    p {
+        font-size: 3rem; /* Уменьшаем размер текста для p */
+    }
+    input[type="date"] {
+      font-size: 1.5rem;
+    }
+}
+
+/* Стили для очень маленьких экранов (телефоны в портретной ориентации) */
+@media (max-width: 480px) {
+    p {
+        font-size: 2rem; /* Еще меньше для маленьких телефонов */
+    }
+    input[type="date"] {
+      font-size: 1.5rem;
+    }
 }
