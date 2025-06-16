@@ -29,16 +29,30 @@ document.addEventListener('DOMContentLoaded', () => {
     
         updateAnimation('Average people live 80 years');
         setTimeout(() => {
-            updateAnimation("It's 36,500 days");
+            updateAnimation("It's 29 200 days");
             setTimeout(() => {
                 updateAnimation(`You have ${daysRemaining} days left`);
-                setTimeout(() => {
-                    updateAnimation(`Make sure you spend today doing the right things`);
-                }, 3000);
+                createProgressBar(daysLived, avrgYears);
             }, 2500);
         }, 2500);
     }
 
+    function createProgressBar (daysLived, avrgYears) {
+        const progressBarWrapper = document.createElement('div');
+        progressBarWrapper.classList.add('progress-bar-container');
+
+        p.parentElement.append(progressBarWrapper);
+
+        const progressBar = document.createElement('div');
+        progressBar.classList.add('progress-bar-fill');
+
+        progressBarWrapper.append(progressBar);
+
+        void progressBar.offsetWidth;
+        
+        const width = `${(daysLived * 100)/(avrgYears * 365.25)}%`;
+        progressBar.style.width = width;
+    }
 
     if (localStorage.getItem('userBirthdate') === null) {
         
@@ -71,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
     } else {
         setTimeout(() => {
-            calculateLeft(localStorage.getItem('userBirthdate'))
+            calculateLeft(localStorage.getItem('userBirthdate'));
         }, 2000);
     }
 });
